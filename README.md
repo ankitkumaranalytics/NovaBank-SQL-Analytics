@@ -1,51 +1,26 @@
+
 # NovaBank SQL Analytics
 
 ## Project Overview
 
-NovaBank SQL Analytics is a banking transaction data analysis project built with PostgreSQL and pgAdmin. The project explores customer transaction activity, monthly trends, transaction categories, and data quality using SQL.
+NovaBank SQL Analytics is a banking transaction data analysis project built using PostgreSQL and SQL. The project demonstrates data quality validation, data cleaning, business analysis, customer analytics, banking KPIs, advanced SQL techniques, and RFM-based customer segmentation.
 
 ## Objectives
 
-- Validate data quality and identify missing values and duplicate transaction IDs.
-- Convert raw date fields into PostgreSQL date values.
-- Analyze monthly transaction trends.
-- Identify high-value customers using aggregation and ranking.
-- Compare transaction activity by customer gender and location.
-- Calculate key performance indicators (KPIs).
+- Validate banking transaction data quality.
+- Clean and prepare transaction data for analysis.
+- Analyze transaction trends and customer behavior.
+- Calculate banking KPIs and monthly performance.
+- Apply advanced SQL techniques using CTEs and window functions.
+- Segment customers using Recency, Frequency, and Monetary (RFM) analysis.
 
-## Tools and Technologies
+## Technology Stack
 
-- PostgreSQL
-- pgAdmin 4
-- SQL
-- Visual Studio Code
-- Git and GitHub
-
-## Dataset
-
-The dataset contains banking transaction records with fields such as:
-
-- Transaction ID
-- Customer ID
-- Customer date of birth
-- Gender
-- Customer location
-- Account balance
-- Transaction date and time
-- Transaction amount in INR
-
-The source CSV is not included in this repository because it contains customer and financial transaction fields. Place an authorized copy at `Dataset/bank_transactions.csv` locally before importing it into PostgreSQL. Do not commit customer or financial data.
-
-## SQL Concepts Demonstrated
-
-- SELECT, WHERE, ORDER BY
-- GROUP BY and aggregate functions
-- CASE WHEN
-- Common Table Expressions (CTEs)
-- Window functions: RANK(), ROW_NUMBER(), and SUM() OVER()
-- Date functions: DATE_TRUNC()
-- Data quality checks
-- Index creation and query performance testing
+- **Database:** PostgreSQL
+- **SQL Environment:** pgAdmin 4
+- **Code Editor:** Visual Studio Code
+- **Version Control:** Git and GitHub
+- **Dataset:** Banking transaction CSV
 
 ## Project Structure
 
@@ -58,28 +33,76 @@ NovaBank-SQL-Analytics/
 ├── 03_business_analysis.sql
 ├── 04_customer_analysis.sql
 ├── 05_banking_kpis.sql
+├── 06_advanced_sql_analysis.sql
+├── 07_customer_rfm_analysis.sql
 └── README.md
 ```
 
-## Key Business Questions
+The source CSV is not included because it contains customer and financial transaction fields. Place an authorized copy at `Dataset/bank_transactions.csv` locally before importing it into PostgreSQL. Do not commit customer or financial data.
 
-1. How does transaction activity change month by month?
-2. Which customers have the highest recorded transaction amounts?
-3. Which transaction categories contribute the most transaction value?
-4. How does transaction activity vary by customer location and gender?
-5. What are the overall transaction KPIs?
-6. What data quality issues require further investigation?
+## SQL Analysis Modules
 
-## How to Run the Project
+| File | Description |
+|---|---|
+| 01_data_quality_checks.sql | Missing values, duplicate records, and data validation |
+| 02_data_cleaning.sql | Cleaning and preparing transaction data |
+| 03_business_analysis.sql | Transaction trends and business performance |
+| 04_customer_analysis.sql | Customer behavior and spending analysis |
+| 05_banking_kpis.sql | Banking KPIs and monthly metrics |
+| 06_advanced_sql_analysis.sql | Window functions, CTEs, rolling averages, growth, cohorts, and outliers |
+| 07_customer_rfm_analysis.sql | RFM scoring, customer segmentation, and segment-level summaries |
 
-1. Install PostgreSQL and pgAdmin 4.
-2. Create a database named `nova_bank_analytics`.
-3. Import the original CSV into `public.bank_transactions`.
-4. Run the data cleaning script to create `public.bank_transactions_clean`.
-5. Run the remaining SQL scripts in numerical order.
+## Database Setup
 
-**Important:** The cleaning script assumes dates use the `DD/MM/YY` format. Verify the source format before relying on the converted dates. The cleaning script drops and recreates the clean table, so use it carefully.
+Create the project database in PostgreSQL:
+
+```sql
+CREATE DATABASE nova_bank_analytics;
+```
+
+Connect to `nova_bank_analytics` using pgAdmin 4.
+
+Import `Dataset/bank_transactions.csv` into the raw table:
+
+```text
+public.bank_transactions
+```
+
+Run the SQL scripts in order, from `01_data_quality_checks.sql` through `07_customer_rfm_analysis.sql`, using the correct file paths and table names.
+
+**Important:** Review the cleaning script before rerunning it, because it may drop and recreate the cleaned table.
+
+The analysis scripts use the cleaned table:
+
+```text
+public.bank_transactions_clean
+```
+
+## Key SQL Concepts Demonstrated
+
+- SELECT, WHERE, GROUP BY, and HAVING
+- Aggregate functions and CASE expressions
+- Joins and subqueries
+- Common Table Expressions (CTEs)
+- Window functions: LAG, LEAD, RANK, DENSE_RANK, and ROW_NUMBER
+- Running totals and moving averages
+- Month-over-month analysis
+- Outlier detection using IQR
+- Customer cohort and retention analysis
+- RFM scoring and customer segmentation
+- Indexing and query performance analysis
+
+## Business Value
+
+This project demonstrates how SQL can transform raw banking transaction data into structured insights about customer activity, transaction patterns, spending behavior, retention, and customer value.
+
+## Author
+
+**Ankit Kumar**
+
+- GitHub: https://github.com/ankitkumaranalytics
+- Project Repository: https://github.com/ankitkumaranalytics/NovaBank-SQL-Analytics
 
 ## Disclaimer
 
-This project is for educational and portfolio purposes. The reported transaction value represents the sum of recorded transaction amounts, not bank revenue or profit. Findings should be interpreted in the context of the dataset and its limitations.
+This is an educational portfolio project. The dataset and analysis are intended for demonstration and learning purposes and do not represent official banking reports.
